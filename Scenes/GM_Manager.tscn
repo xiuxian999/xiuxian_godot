@@ -1,8 +1,9 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://Scripts/GM_Manager.gd" id="1"]
+[ext_resource type="Script"  path="res://Scripts/GM_Manager.gd" id="1"]
 
 [node name="GM_Manager" type="Control"]
+mouse_filter = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -59,15 +60,18 @@ size_flags_horizontal = 0
 text = "提示强度："
 
 [node name="PromptOption" type="OptionButton" parent="MainPanel/VBox/TopBar"]
+mouse_filter = 2
 layout_mode = 2
 size_flags_horizontal = 0
 custom_minimum_size = Vector2(120, 32)
 
 [node name="TabContainer" type="TabContainer" parent="MainPanel/VBox"]
+mouse_filter = 2
 layout_mode = 2
 size_flags_vertical = 3
 
 [node name="概率控制" type="ScrollContainer" parent="MainPanel/VBox/TabContainer"]
+mouse_filter = 2
 layout_mode = 2
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 1
@@ -88,6 +92,7 @@ custom_minimum_size = Vector2(100, 0)
 text = "选择事件："
 
 [node name="SystemOption" type="OptionButton" parent="MainPanel/VBox/TabContainer/概率控制/VBox/系统选择行"]
+mouse_filter = 2
 layout_mode = 2
 size_flags_horizontal = 1
 
@@ -106,6 +111,7 @@ custom_minimum_size = Vector2(100, 0)
 text = "基础概率："
 
 [node name="RateSpin" type="SpinBox" parent="MainPanel/VBox/TabContainer/概率控制/VBox/基础概率行"]
+mouse_filter = 2
 layout_mode = 2
 size_flags_horizontal = 1
 custom_minimum_size = Vector2(150, 0)
@@ -152,16 +158,19 @@ layout_mode = 2
 size_flags_vertical = 0
 
 [node name="ApplyButton" type="Button" parent="MainPanel/VBox/TabContainer/概率控制/VBox/按钮行"]
+mouse_filter = 2
 layout_mode = 2
 size_flags_horizontal = 1
 text = "应用"
 
 [node name="ResetButton" type="Button" parent="MainPanel/VBox/TabContainer/概率控制/VBox/按钮行"]
+mouse_filter = 2
 layout_mode = 2
 size_flags_horizontal = 1
 text = "重置保底"
 
 [node name="TestButton" type="Button" parent="MainPanel/VBox/TabContainer/概率控制/VBox/按钮行"]
+mouse_filter = 2
 layout_mode = 2
 size_flags_horizontal = 1
 text = "测试一次"
@@ -177,6 +186,7 @@ text = "点击「测试一次」查看结果..."
 autowrap_mode = 3
 
 [node name="角色控制" type="ScrollContainer" parent="MainPanel/VBox/TabContainer"]
+mouse_filter = 2
 layout_mode = 2
 
 [node name="VBox" type="VBoxContainer" parent="MainPanel/VBox/TabContainer/角色控制"]
@@ -203,6 +213,7 @@ custom_minimum_size = Vector2(80, 0)
 text = "境界："
 
 [node name="RealmOption" type="OptionButton" parent="MainPanel/VBox/TabContainer/角色控制/VBox/境界行"]
+mouse_filter = 2
 layout_mode = 2
 size_flags_horizontal = 1
 
@@ -217,6 +228,7 @@ custom_minimum_size = Vector2(80, 0)
 text = "等级："
 
 [node name="LevelSpin" type="SpinBox" parent="MainPanel/VBox/TabContainer/角色控制/VBox/等级行"]
+mouse_filter = 2
 layout_mode = 2
 size_flags_horizontal = 1
 max_value = 999.0
@@ -233,6 +245,7 @@ custom_minimum_size = Vector2(80, 0)
 text = "生命："
 
 [node name="HpSpin" type="SpinBox" parent="MainPanel/VBox/TabContainer/角色控制/VBox/生命行"]
+mouse_filter = 2
 layout_mode = 2
 size_flags_horizontal = 1
 max_value = 999999.0
@@ -249,6 +262,7 @@ custom_minimum_size = Vector2(80, 0)
 text = "灵力："
 
 [node name="MpSpin" type="SpinBox" parent="MainPanel/VBox/TabContainer/角色控制/VBox/灵力行"]
+mouse_filter = 2
 layout_mode = 2
 size_flags_horizontal = 1
 max_value = 999999.0
@@ -262,16 +276,19 @@ layout_mode = 2
 size_flags_vertical = 0
 
 [node name="MaxLevelButton" type="Button" parent="MainPanel/VBox/TabContainer/角色控制/VBox/按钮行"]
+mouse_filter = 2
 layout_mode = 2
 size_flags_horizontal = 1
 text = "一键满级"
 
 [node name="MaxStatButton" type="Button" parent="MainPanel/VBox/TabContainer/角色控制/VBox/按钮行"]
+mouse_filter = 2
 layout_mode = 2
 size_flags_horizontal = 1
 text = "一键满属性"
 
 [node name="物品控制" type="ScrollContainer" parent="MainPanel/VBox/TabContainer"]
+mouse_filter = 2
 layout_mode = 2
 
 [node name="VBox" type="VBoxContainer" parent="MainPanel/VBox/TabContainer/物品控制"]
@@ -297,11 +314,13 @@ size_flags_horizontal = 0
 text = "搜索："
 
 [node name="SearchEdit" type="LineEdit" parent="MainPanel/VBox/TabContainer/物品控制/VBox/搜索行"]
+mouse_filter = 2
 layout_mode = 2
 size_flags_horizontal = 1
 placeholder_text = "输入物品名称..."
 
 [node name="ItemList" type="ItemList" parent="MainPanel/VBox/TabContainer/物品控制/VBox"]
+mouse_filter = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -312,16 +331,19 @@ layout_mode = 2
 size_flags_vertical = 0
 
 [node name="AddButton" type="Button" parent="MainPanel/VBox/TabContainer/物品控制/VBox/按钮行"]
+mouse_filter = 2
 layout_mode = 2
 size_flags_horizontal = 1
 text = "添加物品"
 
 [node name="DeleteButton" type="Button" parent="MainPanel/VBox/TabContainer/物品控制/VBox/按钮行"]
+mouse_filter = 2
 layout_mode = 2
 size_flags_horizontal = 1
 text = "删除选中"
 
 [node name="战斗控制" type="ScrollContainer" parent="MainPanel/VBox/TabContainer"]
+mouse_filter = 2
 layout_mode = 2
 
 [node name="VBox" type="VBoxContainer" parent="MainPanel/VBox/TabContainer/战斗控制"]
@@ -348,12 +370,14 @@ custom_minimum_size = Vector2(100, 0)
 text = "敌人数量："
 
 [node name="EnemySpin" type="SpinBox" parent="MainPanel/VBox/TabContainer/战斗控制/VBox/敌人数量行"]
+mouse_filter = 2
 layout_mode = 2
 size_flags_horizontal = 1
 max_value = 20.0
 value = 1.0
 
 [node name="全局设置" type="ScrollContainer" parent="MainPanel/VBox/TabContainer"]
+mouse_filter = 2
 layout_mode = 2
 
 [node name="VBox" type="VBoxContainer" parent="MainPanel/VBox/TabContainer/全局设置"]
@@ -380,6 +404,7 @@ custom_minimum_size = Vector2(100, 0)
 text = "游戏速度："
 
 [node name="SpeedSlider" type="HSlider" parent="MainPanel/VBox/TabContainer/全局设置/VBox/游戏速度行"]
+mouse_filter = 2
 layout_mode = 2
 size_flags_horizontal = 1
 min_value = 0.1
@@ -403,6 +428,7 @@ custom_minimum_size = Vector2(100, 0)
 text = "调试模式："
 
 [node name="DebugCheck" type="CheckBox" parent="MainPanel/VBox/TabContainer/全局设置/VBox/调试模式行"]
+mouse_filter = 2
 layout_mode = 2
 size_flags_horizontal = 1
 text = "启用"
