@@ -1,0 +1,40 @@
+# AnimationPlayer 设置说明
+
+## 已将8个动画保存为独立资源文件：
+
+- Idle: res://Animations/Idle.res
+- Walk: res://Animations/Walk.res
+- Run: res://Animations/Run.res
+- Attack: res://Animations/Attack.res
+- Walk_Attack: res://Animations/Walk_Attack.res
+- Run_Attack: res://Animations/Run_Attack.res
+- Hurt: res://Animations/Hurt.res
+- Death: res://Animations/Death.res
+
+## 在 Godot 编辑器中手动操作：
+
+1. 打开 Player.tscn 场景
+2. 选中 AnimationPlayer 节点
+3. 在 Animation 面板中，点击"新建动画"按钮
+4. 为每个动画：
+   - 点击"加载动画"按钮
+   - 选择对应的 .res 文件（在 Animations/ 目录中）
+   - 或者在动画中添加轨道，设置 Sprite2D:texture 关键帧
+
+## 或者：使用脚本自动加载
+
+在 PlayerController.gd 的 _ready() 函数中添加：
+
+```gdscript
+func _ready():
+	# ... 现有代码 ...
+	
+	# 加载所有动画到 AnimationPlayer
+	var ap = $AnimationPlayer
+	var anim_names = ["Idle", "Walk", "Run", "Attack", "Walk_Attack", "Run_Attack", "Hurt", "Death"]
+	for name in anim_names:
+		var anim_res = load("res://Animations/" + name + ".res")
+		if anim_res:
+			ap.add_animation(name, anim_res)
+	print("✅ 动画已加载到 AnimationPlayer")
+```
