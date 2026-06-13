@@ -1,15 +1,14 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://lguh78j6xhov"]
 
-[ext_resource type="Script" path="res://Scripts/PlayerController.gd" id="1"]
+[ext_resource type="Script" uid="uid://dvo25e1trwaq1" path="res://Scripts/PlayerController.gd" id="1"]
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" unique_id=768026024]
 script = ExtResource("1")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1812518688]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1518657431]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=237112659]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-enabled = true
+[node name="Camera2D" type="Camera2D" parent="." unique_id=659530194]

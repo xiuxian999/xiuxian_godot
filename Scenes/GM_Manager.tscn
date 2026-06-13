@@ -1,5 +1,7 @@
 [gd_scene load_steps=2 format=3]
 
+[ext_resource type="Script" path="res://Scripts/GM_Manager.gd" id="1"]
+
 [node name="GM_Manager" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -7,7 +9,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_GM_Manager.gd")
+process_mode = 2
+script = ExtResource("1")
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
@@ -16,701 +19,391 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color("0.129412", 0.117647, 0.14902, 1)
+color = Color(0.12549, 0.0784314, 0.0392157, 1)
 
-[node name="VBox" type="VBoxContainer" parent="."]
+[node name="MainPanel" type="Panel" parent="."]
 layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -300.0
+offset_right = 400.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="MainPanel"]
+layout_mode = 2
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 0
 
-[node name="TitleBar" type="HBoxContainer" parent="VBox"]
+[node name="TopBar" type="HBoxContainer" parent="MainPanel/VBox"]
 layout_mode = 2
 size_flags_vertical = 0
-theme_override_constants/separation = 10
 
-[node name="TitleLabel" type="Label" parent="VBox/TitleBar"]
+[node name="TitleLabel" type="Label" parent="MainPanel/VBox/TopBar"]
 layout_mode = 2
-size_flags_horizontal = 3
-text = "🔧 GM 工具箱 - 魂穿凡人"
+size_flags_horizontal = 1
+text = "GM 工具箱"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 20
 
-[node name="CloseButton" type="Button" parent="VBox/TitleBar"]
-custom_minimum_size = Vector2(80, 36)
+[node name="PromptLabel" type="Label" parent="MainPanel/VBox/TopBar"]
 layout_mode = 2
 size_flags_horizontal = 0
-text = "关闭"
+text = "提示强度："
 
-[node name="TabContainer" type="TabContainer" parent="VBox"]
+[node name="PromptOption" type="OptionButton" parent="MainPanel/VBox/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 0
+custom_minimum_size = Vector2(120, 32)
+
+[node name="TabContainer" type="TabContainer" parent="MainPanel/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
-tabs_visible = 0
 
-[node name="Tab_概率控制" type="ScrollContainer" parent="VBox/TabContainer"]
+[node name="概率控制" type="ScrollContainer" parent="MainPanel/VBox/TabContainer"]
 layout_mode = 2
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 1
 
-[node name="VBox" type="VBoxContainer" parent="VBox/TabContainer/Tab_概率控制"]
+[node name="VBox" type="VBoxContainer" parent="MainPanel/VBox/TabContainer/概率控制"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="系统说明" type="Label" parent="VBox/TabContainer/Tab_概率控制/VBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "【概率控制】实时调整各系统的几率参数，修改后立即生效（无需重启游戏）"
-autowrap_mode = 3
-
-[node name="Separator1" type="HSeparator" parent="VBox/TabContainer/Tab_概率控制/VBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="概率控制容器" type="VBoxContainer" parent="VBox/TabContainer/Tab_概率控制/VBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="炼丹暴击" type="HBoxContainer" parent="VBox/TabContainer/Tab_概率控制/VBox/概率控制容器"]
+[node name="系统选择行" type="HBoxContainer" parent="MainPanel/VBox/TabContainer/概率控制/VBox"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="VBox/TabContainer/Tab_概率控制/VBox/概率控制容器/炼丹暴击"]
-layout_mode = 2
-size_flags_horizontal = 1
-custom_minimum_size = Vector2(120, 0)
-text = "炼丹暴击："
-
-[node name="RateSlider" type="HSlider" parent="VBox/TabContainer/Tab_概率控制/VBox/概率控制容器/炼丹暴击"]
-layout_mode = 2
-size_flags_horizontal = 2
-custom_minimum_size = Vector2(200, 0)
-min_value = 0.0
-max_value = 100.0
-step = 1.0
-value = 15.0
-
-[node name="RateLabel" type="Label" parent="VBox/TabContainer/Tab_概率控制/VBox/概率控制容器/炼丹暴击"]
+[node name="Label" type="Label" parent="MainPanel/VBox/TabContainer/概率控制/VBox/系统选择行"]
 layout_mode = 2
 size_flags_horizontal = 0
-custom_minimum_size = Vector2(60, 0)
-text = "15%"
+custom_minimum_size = Vector2(100, 0)
+text = "选择事件："
 
-[node name="炼器暴击" type="HBoxContainer" parent="VBox/TabContainer/Tab_概率控制/VBox/概率控制容器"]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="Label" type="Label" parent="VBox/TabContainer/Tab_概率控制/VBox/概率控制容器/炼器暴击"]
+[node name="SystemOption" type="OptionButton" parent="MainPanel/VBox/TabContainer/概率控制/VBox/系统选择行"]
 layout_mode = 2
 size_flags_horizontal = 1
-custom_minimum_size = Vector2(120, 0)
-text = "炼器暴击："
 
-[node name="RateSlider" type="HSlider" parent="VBox/TabContainer/Tab_概率控制/VBox/概率控制容器/炼器暴击"]
-layout_mode = 2
-size_flags_horizontal = 2
-custom_minimum_size = Vector2(200, 0)
-min_value = 0.0
-max_value = 100.0
-step = 1.0
-value = 12.0
-
-[node name="RateLabel" type="Label" parent="VBox/TabContainer/Tab_概率控制/VBox/概率控制容器/炼器暴击"]
-layout_mode = 2
-size_flags_horizontal = 0
-custom_minimum_size = Vector2(60, 0)
-text = "12%"
-
-[node name="灵兽初值" type="HBoxContainer" parent="VBox/TabContainer/Tab_概率控制/VBox/概率控制容器"]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="Label" type="Label" parent="VBox/TabContainer/Tab_概率控制/VBox/概率控制容器/灵兽初值"]
-layout_mode = 2
-size_flags_horizontal = 1
-custom_minimum_size = Vector2(120, 0)
-text = "灵兽初值："
-
-[node name="RateSlider" type="HSlider" parent="VBox/TabContainer/Tab_概率控制/VBox/概率控制容器/灵兽初值"]
-layout_mode = 2
-size_flags_horizontal = 2
-custom_minimum_size = Vector2(200, 0)
-min_value = 0.0
-max_value = 100.0
-step = 1.0
-value = 10.0
-
-[node name="RateLabel" type="Label" parent="VBox/TabContainer/Tab_概率控制/VBox/概率控制容器/灵兽初值"]
-layout_mode = 2
-size_flags_horizontal = 0
-custom_minimum_size = Vector2(60, 0)
-text = "10%"
-
-[node name="灵兽成长" type="HBoxContainer" parent="VBox/TabContainer/Tab_概率控制/VBox/概率控制容器"]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="Label" type="Label" parent="VBox/TabContainer/Tab_概率控制/VBox/概率控制容器/灵兽成长"]
-layout_mode = 2
-size_flags_horizontal = 1
-custom_minimum_size = Vector2(120, 0)
-text = "灵兽成长："
-
-[node name="RateSlider" type="HSlider" parent="VBox/TabContainer/Tab_概率控制/VBox/概率控制容器/灵兽成长"]
-layout_mode = 2
-size_flags_horizontal = 2
-custom_minimum_size = Vector2(200, 0)
-min_value = 0.0
-max_value = 100.0
-step = 1.0
-value = 8.0
-
-[node name="RateLabel" type="Label" parent="VBox/TabContainer/Tab_概率控制/VBox/概率控制容器/灵兽成长"]
-layout_mode = 2
-size_flags_horizontal = 0
-custom_minimum_size = Vector2(60, 0)
-text = "8%"
-
-[node name="战斗暴击" type="HBoxContainer" parent="VBox/TabContainer/Tab_概率控制/VBox/概率控制容器"]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="Label" type="Label" parent="VBox/TabContainer/Tab_概率控制/VBox/概率控制容器/战斗暴击"]
-layout_mode = 2
-size_flags_horizontal = 1
-custom_minimum_size = Vector2(120, 0)
-text = "战斗暴击："
-
-[node name="RateSlider" type="HSlider" parent="VBox/TabContainer/Tab_概率控制/VBox/概率控制容器/战斗暴击"]
-layout_mode = 2
-size_flags_horizontal = 2
-custom_minimum_size = Vector2(200, 0)
-min_value = 0.0
-max_value = 100.0
-step = 1.0
-value = 20.0
-
-[node name="RateLabel" type="Label" parent="VBox/TabContainer/Tab_概率控制/VBox/概率控制容器/战斗暴击"]
-layout_mode = 2
-size_flags_horizontal = 0
-custom_minimum_size = Vector2(60, 0)
-text = "20%"
-
-[node name="Separator2" type="HSeparator" parent="VBox/TabContainer/Tab_概率控制/VBox"]
+[node name="HSeparator1" type="HSeparator" parent="MainPanel/VBox/TabContainer/概率控制/VBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="批量操作" type="HBoxContainer" parent="VBox/TabContainer/Tab_概率控制/VBox"]
+[node name="基础概率行" type="HBoxContainer" parent="MainPanel/VBox/TabContainer/概率控制/VBox"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="VBox/TabContainer/Tab_概率控制/VBox/批量操作"]
+[node name="Label" type="Label" parent="MainPanel/VBox/TabContainer/概率控制/VBox/基础概率行"]
+layout_mode = 2
+size_flags_horizontal = 0
+custom_minimum_size = Vector2(100, 0)
+text = "基础概率："
+
+[node name="RateSpin" type="SpinBox" parent="MainPanel/VBox/TabContainer/概率控制/VBox/基础概率行"]
 layout_mode = 2
 size_flags_horizontal = 1
-text = "批量设置："
+custom_minimum_size = Vector2(150, 0)
+max_value = 100.0
+step = 1.0
+suffix = "%"
 
-[node name="All50Button" type="Button" parent="VBox/TabContainer/Tab_概率控制/VBox/批量操作"]
+[node name="保底等级行" type="HBoxContainer" parent="MainPanel/VBox/TabContainer/概率控制/VBox"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="MainPanel/VBox/TabContainer/概率控制/VBox/保底等级行"]
 layout_mode = 2
 size_flags_horizontal = 0
-text = "全部50%"
+custom_minimum_size = Vector2(100, 0)
+text = "当前保底："
 
-[node name="All80Button" type="Button" parent="VBox/TabContainer/Tab_概率控制/VBox/批量操作"]
+[node name="LuckLabel" type="Label" parent="MainPanel/VBox/TabContainer/概率控制/VBox/保底等级行"]
+layout_mode = 2
+size_flags_horizontal = 1
+text = "0.0%"
+
+[node name="最高概率行" type="HBoxContainer" parent="MainPanel/VBox/TabContainer/概率控制/VBox"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="MainPanel/VBox/TabContainer/概率控制/VBox/最高概率行"]
 layout_mode = 2
 size_flags_horizontal = 0
-text = "全部80%"
+custom_minimum_size = Vector2(100, 0)
+text = "最高概率："
 
-[node name="ResetButton" type="Button" parent="VBox/TabContainer/Tab_概率控制/VBox/批量操作"]
+[node name="MaxRateLabel" type="Label" parent="MainPanel/VBox/TabContainer/概率控制/VBox/最高概率行"]
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 1
+text = "80.0%"
+
+[node name="HSeparator2" type="HSeparator" parent="MainPanel/VBox/TabContainer/概率控制/VBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="按钮行" type="HBoxContainer" parent="MainPanel/VBox/TabContainer/概率控制/VBox"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="ApplyButton" type="Button" parent="MainPanel/VBox/TabContainer/概率控制/VBox/按钮行"]
+layout_mode = 2
+size_flags_horizontal = 1
+text = "应用"
+
+[node name="ResetButton" type="Button" parent="MainPanel/VBox/TabContainer/概率控制/VBox/按钮行"]
+layout_mode = 2
+size_flags_horizontal = 1
 text = "重置保底"
 
-[node name="Separator3" type="HSeparator" parent="VBox/TabContainer/Tab_概率控制/VBox"]
+[node name="TestButton" type="Button" parent="MainPanel/VBox/TabContainer/概率控制/VBox/按钮行"]
+layout_mode = 2
+size_flags_horizontal = 1
+text = "测试一次"
+
+[node name="HSeparator3" type="HSeparator" parent="MainPanel/VBox/TabContainer/概率控制/VBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="测试区" type="Label" parent="VBox/TabContainer/Tab_概率控制/VBox"]
+[node name="测试结果" type="Label" parent="MainPanel/VBox/TabContainer/概率控制/VBox"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "【测试区】点击按钮模拟一次几率判定："
-horizontal_alignment = 1
-
-[node name="测试按钮容器" type="HBoxContainer" parent="VBox/TabContainer/Tab_概率控制/VBox"]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="TestAlchemyButton" type="Button" parent="VBox/TabContainer/Tab_概率控制/VBox/测试按钮容器"]
-layout_mode = 2
-size_flags_horizontal = 1
-text = "测试炼丹"
-
-[node name="TestForgingButton" type="Button" parent="VBox/TabContainer/Tab_概率控制/VBox/测试按钮容器"]
-layout_mode = 2
-size_flags_horizontal = 1
-text = "测试炼器"
-
-[node name="TestCombatButton" type="Button" parent="VBox/TabContainer/Tab_概率控制/VBox/测试按钮容器"]
-layout_mode = 2
-size_flags_horizontal = 1
-text = "测试战斗"
-
-[node name="测试结果" type="Label" parent="VBox/TabContainer/Tab_概率控制/VBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "点击上方按钮查看测试结果..."
+text = "点击「测试一次」查看结果..."
 autowrap_mode = 3
 
-[node name="Tab_玩家数据" type="ScrollContainer" parent="VBox/TabContainer"]
+[node name="角色控制" type="ScrollContainer" parent="MainPanel/VBox/TabContainer"]
 layout_mode = 2
-horizontal_scroll_mode = 0
-vertical_scroll_mode = 1
 
-[node name="VBox" type="VBoxContainer" parent="VBox/TabContainer/Tab_玩家数据"]
+[node name="VBox" type="VBoxContainer" parent="MainPanel/VBox/TabContainer/角色控制"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="系统说明" type="Label" parent="VBox/TabContainer/Tab_玩家数据/VBox"]
+[node name="说明" type="Label" parent="MainPanel/VBox/TabContainer/角色控制/VBox"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "【玩家数据】查看/修改玩家属性，支持一键满级、一键满属性"
-autowrap_mode = 3
+text = "【角色控制】修改玩家属性"
 
-[node name="Separator1" type="HSeparator" parent="VBox/TabContainer/Tab_玩家数据/VBox"]
+[node name="HSeparator1" type="HSeparator" parent="MainPanel/VBox/TabContainer/角色控制/VBox"]
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="属性容器" type="VBoxContainer" parent="VBox/TabContainer/Tab_玩家数据/VBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="境界" type="HBoxContainer" parent="VBox/TabContainer/Tab_玩家数据/VBox/属性容器"]
+[node name="境界行" type="HBoxContainer" parent="MainPanel/VBox/TabContainer/角色控制/VBox"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="VBox/TabContainer/Tab_玩家数据/VBox/属性容器/境界"]
+[node name="Label" type="Label" parent="MainPanel/VBox/TabContainer/角色控制/VBox/境界行"]
+layout_mode = 2
+size_flags_horizontal = 0
+custom_minimum_size = Vector2(80, 0)
+text = "境界："
+
+[node name="RealmOption" type="OptionButton" parent="MainPanel/VBox/TabContainer/角色控制/VBox/境界行"]
 layout_mode = 2
 size_flags_horizontal = 1
-custom_minimum_size = Vector2(100, 0)
-text = "当前境界："
 
-[node name="RealmOption" type="OptionButton" parent="VBox/TabContainer/Tab_玩家数据/VBox/属性容器/境界"]
-layout_mode = 2
-size_flags_horizontal = 2
-text = "炼气一层"
-
-[node name="等级" type="HBoxContainer" parent="VBox/TabContainer/Tab_玩家数据/VBox/属性容器"]
+[node name="等级行" type="HBoxContainer" parent="MainPanel/VBox/TabContainer/角色控制/VBox"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="VBox/TabContainer/Tab_玩家数据/VBox/属性容器/等级"]
+[node name="Label" type="Label" parent="MainPanel/VBox/TabContainer/角色控制/VBox/等级行"]
 layout_mode = 2
-size_flags_horizontal = 1
-custom_minimum_size = Vector2(100, 0)
+size_flags_horizontal = 0
+custom_minimum_size = Vector2(80, 0)
 text = "等级："
 
-[node name="LevelSpin" type="SpinBox" parent="VBox/TabContainer/Tab_玩家数据/VBox/属性容器/等级"]
+[node name="LevelSpin" type="SpinBox" parent="MainPanel/VBox/TabContainer/角色控制/VBox/等级行"]
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 1
 max_value = 999.0
 value = 1.0
 
-[node name="生命" type="HBoxContainer" parent="VBox/TabContainer/Tab_玩家数据/VBox/属性容器"]
+[node name="生命行" type="HBoxContainer" parent="MainPanel/VBox/TabContainer/角色控制/VBox"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="VBox/TabContainer/Tab_玩家数据/VBox/属性容器/生命"]
+[node name="Label" type="Label" parent="MainPanel/VBox/TabContainer/角色控制/VBox/生命行"]
 layout_mode = 2
-size_flags_horizontal = 1
-custom_minimum_size = Vector2(100, 0)
+size_flags_horizontal = 0
+custom_minimum_size = Vector2(80, 0)
 text = "生命："
 
-[node name="HpSpin" type="SpinBox" parent="VBox/TabContainer/Tab_玩家数据/VBox/属性容器/生命"]
+[node name="HpSpin" type="SpinBox" parent="MainPanel/VBox/TabContainer/角色控制/VBox/生命行"]
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 1
 max_value = 999999.0
 value = 100.0
 
-[node name="灵力" type="HBoxContainer" parent="VBox/TabContainer/Tab_玩家数据/VBox/属性容器"]
+[node name="灵力行" type="HBoxContainer" parent="MainPanel/VBox/TabContainer/角色控制/VBox"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="VBox/TabContainer/Tab_玩家数据/VBox/属性容器/灵力"]
+[node name="Label" type="Label" parent="MainPanel/VBox/TabContainer/角色控制/VBox/灵力行"]
 layout_mode = 2
-size_flags_horizontal = 1
-custom_minimum_size = Vector2(100, 0)
+size_flags_horizontal = 0
+custom_minimum_size = Vector2(80, 0)
 text = "灵力："
 
-[node name="MpSpin" type="SpinBox" parent="VBox/TabContainer/Tab_玩家数据/VBox/属性容器/灵力"]
+[node name="MpSpin" type="SpinBox" parent="MainPanel/VBox/TabContainer/角色控制/VBox/灵力行"]
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 1
 max_value = 999999.0
 value = 50.0
 
-[node name="攻击" type="HBoxContainer" parent="VBox/TabContainer/Tab_玩家数据/VBox/属性容器"]
+[node name="HSeparator2" type="HSeparator" parent="MainPanel/VBox/TabContainer/角色控制/VBox"]
+layout_mode = 2
+
+[node name="按钮行" type="HBoxContainer" parent="MainPanel/VBox/TabContainer/角色控制/VBox"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="VBox/TabContainer/Tab_玩家数据/VBox/属性容器/攻击"]
-layout_mode = 2
-size_flags_horizontal = 1
-custom_minimum_size = Vector2(100, 0)
-text = "攻击："
-
-[node name="AtkSpin" type="SpinBox" parent="VBox/TabContainer/Tab_玩家数据/VBox/属性容器/攻击"]
-layout_mode = 2
-size_flags_horizontal = 2
-max_value = 99999.0
-value = 10.0
-
-[node name="防御" type="HBoxContainer" parent="VBox/TabContainer/Tab_玩家数据/VBox/属性容器"]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="Label" type="Label" parent="VBox/TabContainer/Tab_玩家数据/VBox/属性容器/防御"]
-layout_mode = 2
-size_flags_horizontal = 1
-custom_minimum_size = Vector2(100, 0)
-text = "防御："
-
-[node name="DefSpin" type="SpinBox" parent="VBox/TabContainer/Tab_玩家数据/VBox/属性容器/防御"]
-layout_mode = 2
-size_flags_horizontal = 2
-max_value = 99999.0
-value = 5.0
-
-[node name="速度" type="HBoxContainer" parent="VBox/TabContainer/Tab_玩家数据/VBox/属性容器"]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="Label" type="Label" parent="VBox/TabContainer/Tab_玩家数据/VBox/属性容器/速度"]
-layout_mode = 2
-size_flags_horizontal = 1
-custom_minimum_size = Vector2(100, 0)
-text = "速度："
-
-[node name="SpdSpin" type="SpinBox" parent="VBox/TabContainer/Tab_玩家数据/VBox/属性容器/速度"]
-layout_mode = 2
-size_flags_horizontal = 2
-max_value = 9999.0
-value = 10.0
-
-[node name="Separator2" type="HSeparator" parent="VBox/TabContainer/Tab_玩家数据/VBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="快捷操作" type="HBoxContainer" parent="VBox/TabContainer/Tab_玩家数据/VBox"]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="MaxLevelButton" type="Button" parent="VBox/TabContainer/Tab_玩家数据/VBox/快捷操作"]
+[node name="MaxLevelButton" type="Button" parent="MainPanel/VBox/TabContainer/角色控制/VBox/按钮行"]
 layout_mode = 2
 size_flags_horizontal = 1
 text = "一键满级"
 
-[node name="MaxStatButton" type="Button" parent="VBox/TabContainer/Tab_玩家数据/VBox/快捷操作"]
+[node name="MaxStatButton" type="Button" parent="MainPanel/VBox/TabContainer/角色控制/VBox/按钮行"]
 layout_mode = 2
 size_flags_horizontal = 1
 text = "一键满属性"
 
-[node name="AddItemButton" type="Button" parent="VBox/TabContainer/Tab_玩家数据/VBox/快捷操作"]
+[node name="物品控制" type="ScrollContainer" parent="MainPanel/VBox/TabContainer"]
 layout_mode = 2
-size_flags_horizontal = 1
-text = "添加物品"
 
-[node name="Tab_物品管理" type="ScrollContainer" parent="VBox/TabContainer"]
-layout_mode = 2
-horizontal_scroll_mode = 0
-vertical_scroll_mode = 1
-
-[node name="VBox" type="VBoxContainer" parent="VBox/TabContainer/Tab_物品管理"]
+[node name="VBox" type="VBoxContainer" parent="MainPanel/VBox/TabContainer/物品控制"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="系统说明" type="Label" parent="VBox/TabContainer/Tab_物品管理/VBox"]
+[node name="说明" type="Label" parent="MainPanel/VBox/TabContainer/物品控制/VBox"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "【物品管理】搜索/添加/删除物品，支持批量操作和 Excel 导入导出"
-autowrap_mode = 3
+text = "【物品控制】搜索/添加/删除物品"
 
-[node name="Separator1" type="HSeparator" parent="VBox/TabContainer/Tab_物品管理/VBox"]
+[node name="HSeparator1" type="HSeparator" parent="MainPanel/VBox/TabContainer/物品控制/VBox"]
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="搜索栏" type="HBoxContainer" parent="VBox/TabContainer/Tab_物品管理/VBox"]
+[node name="搜索行" type="HBoxContainer" parent="MainPanel/VBox/TabContainer/物品控制/VBox"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="VBox/TabContainer/Tab_物品管理/VBox/搜索栏"]
+[node name="Label" type="Label" parent="MainPanel/VBox/TabContainer/物品控制/VBox/搜索行"]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "搜索："
 
-[node name="SearchEdit" type="LineEdit" parent="VBox/TabContainer/Tab_物品管理/VBox/搜索栏"]
+[node name="SearchEdit" type="LineEdit" parent="MainPanel/VBox/TabContainer/物品控制/VBox/搜索行"]
 layout_mode = 2
-size_flags_horizontal = 3
-placeholder_text = "输入物品名称或ID..."
+size_flags_horizontal = 1
+placeholder_text = "输入物品名称..."
 
-[node name="SearchButton" type="Button" parent="VBox/TabContainer/Tab_物品管理/VBox/搜索栏"]
-layout_mode = 2
-size_flags_horizontal = 0
-text = "搜索"
-
-[node name="物品列表" type="ItemList" parent="VBox/TabContainer/Tab_物品管理/VBox"]
+[node name="ItemList" type="ItemList" parent="MainPanel/VBox/TabContainer/物品控制/VBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_minimum_size = Vector2(0, 300)
+custom_minimum_size = Vector2(0, 200)
 
-[node name="操作栏" type="HBoxContainer" parent="VBox/TabContainer/Tab_物品管理/VBox"]
+[node name="按钮行" type="HBoxContainer" parent="MainPanel/VBox/TabContainer/物品控制/VBox"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="AddButton" type="Button" parent="VBox/TabContainer/Tab_物品管理/VBox/操作栏"]
+[node name="AddButton" type="Button" parent="MainPanel/VBox/TabContainer/物品控制/VBox/按钮行"]
 layout_mode = 2
 size_flags_horizontal = 1
 text = "添加物品"
 
-[node name="DeleteButton" type="Button" parent="VBox/TabContainer/Tab_物品管理/VBox/操作栏"]
+[node name="DeleteButton" type="Button" parent="MainPanel/VBox/TabContainer/物品控制/VBox/按钮行"]
 layout_mode = 2
 size_flags_horizontal = 1
 text = "删除选中"
 
-[node name="ClearButton" type="Button" parent="VBox/TabContainer/Tab_物品管理/VBox/操作栏"]
+[node name="战斗控制" type="ScrollContainer" parent="MainPanel/VBox/TabContainer"]
 layout_mode = 2
-size_flags_horizontal = 1
-text = "清空全部"
 
-[node name="Separator2" type="HSeparator" parent="VBox/TabContainer/Tab_物品管理/VBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Excel操作" type="HBoxContainer" parent="VBox/TabContainer/Tab_物品管理/VBox"]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="Label" type="Label" parent="VBox/TabContainer/Tab_物品管理/VBox/Excel操作"]
-layout_mode = 2
-size_flags_horizontal = 0
-text = "Excel："
-
-[node name="ImportButton" type="Button" parent="VBox/TabContainer/Tab_物品管理/VBox/Excel操作"]
-layout_mode = 2
-size_flags_horizontal = 1
-text = "导入Excel"
-
-[node name="ExportButton" type="Button" parent="VBox/TabContainer/Tab_物品管理/VBox/Excel操作"]
-layout_mode = 2
-size_flags_horizontal = 1
-text = "导出Excel"
-
-[node name="Tab_系统设置" type="ScrollContainer" parent="VBox/TabContainer"]
-layout_mode = 2
-horizontal_scroll_mode = 0
-vertical_scroll_mode = 1
-
-[node name="VBox" type="VBoxContainer" parent="VBox/TabContainer/Tab_系统设置"]
+[node name="VBox" type="VBoxContainer" parent="MainPanel/VBox/TabContainer/战斗控制"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="系统说明" type="Label" parent="VBox/TabContainer/Tab_系统设置/VBox"]
+[node name="说明" type="Label" parent="MainPanel/VBox/TabContainer/战斗控制/VBox"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "【系统设置】调整游戏全局参数，包括提示级别、游戏速度、调试模式等"
-autowrap_mode = 3
+text = "【战斗控制】战斗相关参数调整"
 
-[node name="Separator1" type="HSeparator" parent="VBox/TabContainer/Tab_系统设置/VBox"]
+[node name="HSeparator1" type="HSeparator" parent="MainPanel/VBox/TabContainer/战斗控制/VBox"]
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="提示级别" type="HBoxContainer" parent="VBox/TabContainer/Tab_系统设置/VBox"]
+[node name="敌人数量行" type="HBoxContainer" parent="MainPanel/VBox/TabContainer/战斗控制/VBox"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="VBox/TabContainer/Tab_系统设置/VBox/提示级别"]
+[node name="Label" type="Label" parent="MainPanel/VBox/TabContainer/战斗控制/VBox/敌人数量行"]
+layout_mode = 2
+size_flags_horizontal = 0
+custom_minimum_size = Vector2(100, 0)
+text = "敌人数量："
+
+[node name="EnemySpin" type="SpinBox" parent="MainPanel/VBox/TabContainer/战斗控制/VBox/敌人数量行"]
 layout_mode = 2
 size_flags_horizontal = 1
-custom_minimum_size = Vector2(120, 0)
-text = "提示级别："
-
-[node name="PromptOption" type="OptionButton" parent="VBox/TabContainer/Tab_系统设置/VBox/提示级别"]
-layout_mode = 2
-size_flags_horizontal = 2
-text = "详细"
-
-[node name="游戏速度" type="HBoxContainer" parent="VBox/TabContainer/Tab_系统设置/VBox"]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="Label" type="Label" parent="VBox/TabContainer/Tab_系统设置/VBox/游戏速度"]
-layout_mode = 2
-size_flags_horizontal = 1
-custom_minimum_size = Vector2(120, 0)
-text = "游戏速度："
-
-[node name="SpeedSlider" type="HSlider" parent="VBox/TabContainer/Tab_系统设置/VBox/游戏速度"]
-layout_mode = 2
-size_flags_horizontal = 2
-custom_minimum_size = Vector2(200, 0)
-min_value = 0.1
-max_value = 5.0
-step = 0.1
+max_value = 20.0
 value = 1.0
 
-[node name="SpeedLabel" type="Label" parent="VBox/TabContainer/Tab_系统设置/VBox/游戏速度"]
+[node name="全局设置" type="ScrollContainer" parent="MainPanel/VBox/TabContainer"]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="MainPanel/VBox/TabContainer/全局设置"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="说明" type="Label" parent="MainPanel/VBox/TabContainer/全局设置/VBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "【全局设置】游戏全局参数"
+
+[node name="HSeparator1" type="HSeparator" parent="MainPanel/VBox/TabContainer/全局设置/VBox"]
+layout_mode = 2
+
+[node name="游戏速度行" type="HBoxContainer" parent="MainPanel/VBox/TabContainer/全局设置/VBox"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="MainPanel/VBox/TabContainer/全局设置/VBox/游戏速度行"]
 layout_mode = 2
 size_flags_horizontal = 0
-custom_minimum_size = Vector2(60, 0)
+custom_minimum_size = Vector2(100, 0)
+text = "游戏速度："
+
+[node name="SpeedSlider" type="HSlider" parent="MainPanel/VBox/TabContainer/全局设置/VBox/游戏速度行"]
+layout_mode = 2
+size_flags_horizontal = 1
+min_value = 0.1
+max_value = 5.0
+value = 1.0
+
+[node name="SpeedLabel" type="Label" parent="MainPanel/VBox/TabContainer/全局设置/VBox/游戏速度行"]
+layout_mode = 2
+size_flags_horizontal = 0
+custom_minimum_size = Vector2(50, 0)
 text = "1.0x"
 
-[node name="调试模式" type="HBoxContainer" parent="VBox/TabContainer/Tab_系统设置/VBox"]
+[node name="调试模式行" type="HBoxContainer" parent="MainPanel/VBox/TabContainer/全局设置/VBox"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="VBox/TabContainer/Tab_系统设置/VBox/调试模式"]
-layout_mode = 2
-size_flags_horizontal = 1
-custom_minimum_size = Vector2(120, 0)
-text = "调试模式："
-
-[node name="DebugCheck" type="CheckBox" parent="VBox/TabContainer/Tab_系统设置/VBox/调试模式"]
-layout_mode = 2
-size_flags_horizontal = 2
-text = "启用（显示FPS、坐标、调试信息）"
-button_pressed = true
-
-[node name="无敌模式" type="HBoxContainer" parent="VBox/TabContainer/Tab_系统设置/VBox"]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="Label" type="Label" parent="VBox/TabContainer/Tab_系统设置/VBox/无敌模式"]
-layout_mode = 2
-size_flags_horizontal = 1
-custom_minimum_size = Vector2(120, 0)
-text = "无敌模式："
-
-[node name="GodModeCheck" type="CheckBox" parent="VBox/TabContainer/Tab_系统设置/VBox/无敌模式"]
-layout_mode = 2
-size_flags_horizontal = 2
-text = "启用（玩家不受伤害）"
-
-[node name="Separator2" type="HSeparator" parent="VBox/TabContainer/Tab_系统设置/VBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="保存设置" type="Button" parent="VBox/TabContainer/Tab_系统设置/VBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "💾 保存设置"
-
-[node name="重置设置" type="Button" parent="VBox/TabContainer/Tab_系统设置/VBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "🔄 重置为默认"
-
-[node name="Tab_日志导出" type="ScrollContainer" parent="VBox/TabContainer"]
-layout_mode = 2
-horizontal_scroll_mode = 0
-vertical_scroll_mode = 1
-
-[node name="VBox" type="VBoxContainer" parent="VBox/TabContainer/Tab_日志导出"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="系统说明" type="Label" parent="VBox/TabContainer/Tab_日志导出/VBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "【日志/导出】查看游戏运行日志，导出/导入游戏存档和配置"
-autowrap_mode = 3
-
-[node name="Separator1" type="HSeparator" parent="VBox/TabContainer/Tab_日志导出/VBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="日志显示" type="TextEdit" parent="VBox/TabContainer/Tab_日志导出/VBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_minimum_size = Vector2(0, 300)
-editable = false
-wrap_mode = 2
-
-[node name="清空日志" type="Button" parent="VBox/TabContainer/Tab_日志导出/VBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "🗑️ 清空日志"
-
-[node name="Separator2" type="HSeparator" parent="VBox/TabContainer/Tab_日志导出/VBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="存档操作" type="HBoxContainer" parent="VBox/TabContainer/Tab_日志导出/VBox"]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="Label" type="Label" parent="VBox/TabContainer/Tab_日志导出/VBox/存档操作"]
+[node name="Label" type="Label" parent="MainPanel/VBox/TabContainer/全局设置/VBox/调试模式行"]
 layout_mode = 2
 size_flags_horizontal = 0
-text = "存档："
+custom_minimum_size = Vector2(100, 0)
+text = "调试模式："
 
-[node name="SaveButton" type="Button" parent="VBox/TabContainer/Tab_日志导出/VBox/存档操作"]
+[node name="DebugCheck" type="CheckBox" parent="MainPanel/VBox/TabContainer/全局设置/VBox/调试模式行"]
 layout_mode = 2
 size_flags_horizontal = 1
-text = "📁 手动存档"
-
-[node name="LoadButton" type="Button" parent="VBox/TabContainer/Tab_日志导出/VBox/存档操作"]
-layout_mode = 2
-size_flags_horizontal = 1
-text = "📂 读取存档"
-
-[node name="ExportSaveButton" type="Button" parent="VBox/TabContainer/Tab_日志导出/VBox/存档操作"]
-layout_mode = 2
-size_flags_horizontal = 1
-text = "📤 导出存档"
-
-[node name="ImportSaveButton" type="Button" parent="VBox/TabContainer/Tab_日志导出/VBox/存档操作"]
-layout_mode = 2
-size_flags_horizontal = 1
-text = "📥 导入存档"
-
-[connection signal="pressed" from="VBox/TitleBar/CloseButton" to="." method="_on_close_button_pressed"]
-[connection signal="value_changed" from="VBox/TabContainer/Tab_概率控制/VBox/概率控制容器/炼丹暴击/RateSlider" to="." method="_on_alchemy_rate_changed"]
-[connection signal="value_changed" from="VBox/TabContainer/Tab_概率控制/VBox/概率控制容器/炼器暴击/RateSlider" to="." method="_on_forging_rate_changed"]
-[connection signal="value_changed" from="VBox/TabContainer/Tab_概率控制/VBox/概率控制容器/灵兽初值/RateSlider" to="." method="_on_beast_init_rate_changed"]
-[connection signal="value_changed" from="VBox/TabContainer/Tab_概率控制/VBox/概率控制容器/灵兽成长/RateSlider" to="." method="_on_beast_growth_rate_changed"]
-[connection signal="value_changed" from="VBox/TabContainer/Tab_概率控制/VBox/概率控制容器/战斗暴击/RateSlider" to="." method="_on_combat_crit_rate_changed"]
-[connection signal="pressed" from="VBox/TabContainer/Tab_概率控制/VBox/批量操作/All50Button" to="." method="_on_all_50_pressed"]
-[connection signal="pressed" from="VBox/TabContainer/Tab_概率控制/VBox/批量操作/All80Button" to="." method="_on_all_80_pressed"]
-[connection signal="pressed" from="VBox/TabContainer/Tab_概率控制/VBox/批量操作/ResetButton" to="." method="_on_reset_luck_pressed"]
-[connection signal="pressed" from="VBox/TabContainer/Tab_概率控制/VBox/测试按钮容器/TestAlchemyButton" to="." method="_on_test_alchemy_pressed"]
-[connection signal="pressed" from="VBox/TabContainer/Tab_概率控制/VBox/测试按钮容器/TestForgingButton" to="." method="_on_test_forging_pressed"]
-[connection signal="pressed" from="VBox/TabContainer/Tab_概率控制/VBox/测试按钮容器/TestCombatButton" to="." method="_on_test_combat_pressed"]
-[connection signal="pressed" from="VBox/TabContainer/Tab_玩家数据/VBox/快捷操作/MaxLevelButton" to="." method="_on_max_level_pressed"]
-[connection signal="pressed" from="VBox/TabContainer/Tab_玩家数据/VBox/快捷操作/MaxStatButton" to="." method="_on_max_stat_pressed"]
-[connection signal="pressed" from="VBox/TabContainer/Tab_玩家数据/VBox/快捷操作/AddItemButton" to="." method="_on_add_item_pressed"]
-[connection signal="item_selected" from="VBox/TabContainer/Tab_玩家数据/VBox/属性容器/境界/RealmOption" to="." method="_on_realm_selected"]
-[connection signal="pressed" from="VBox/TabContainer/Tab_物品管理/VBox/搜索栏/SearchButton" to="." method="_on_search_pressed"]
-[connection signal="text_changed" from="VBox/TabContainer/Tab_物品管理/VBox/搜索栏/SearchEdit" to="." method="_on_search_text_changed"]
-[connection signal="pressed" from="VBox/TabContainer/Tab_物品管理/VBox/操作栏/AddButton" to="." method="_on_add_item_pressed"]
-[connection signal="pressed" from="VBox/TabContainer/Tab_物品管理/VBox/操作栏/DeleteButton" to="." method="_on_delete_item_pressed"]
-[connection signal="pressed" from="VBox/TabContainer/Tab_物品管理/VBox/操作栏/ClearButton" to="." method="_on_clear_items_pressed"]
-[connection signal="pressed" from="VBox/TabContainer/Tab_物品管理/VBox/Excel操作/ImportButton" to="." method="_on_import_excel_pressed"]
-[connection signal="pressed" from="VBox/TabContainer/Tab_物品管理/VBox/Excel操作/ExportButton" to="." method="_on_export_excel_pressed"]
-[connection signal="item_selected" from="VBox/TabContainer/Tab_系统设置/VBox/提示级别/PromptOption" to="." method="_on_prompt_level_selected"]
-[connection signal="value_changed" from="VBox/TabContainer/Tab_系统设置/VBox/游戏速度/SpeedSlider" to="." method="_on_speed_changed"]
-[connection signal="toggled" from="VBox/TabContainer/Tab_系统设置/VBox/调试模式/DebugCheck" to="." method="_on_debug_toggled"]
-[connection signal="toggled" from="VBox/TabContainer/Tab_系统设置/VBox/无敌模式/GodModeCheck" to="." method="_on_god_mode_toggled"]
-[connection signal="pressed" from="VBox/TabContainer/Tab_系统设置/VBox/保存设置" to="." method="_on_save_settings_pressed"]
-[connection signal="pressed" from="VBox/TabContainer/Tab_系统设置/VBox/重置设置" to="." method="_on_reset_settings_pressed"]
-[connection signal="pressed" from="VBox/TabContainer/Tab_日志导出/VBox/清空日志" to="." method="_on_clear_log_pressed"]
-[connection signal="pressed" from="VBox/TabContainer/Tab_日志导出/VBox/存档操作/SaveButton" to="." method="_on_save_pressed"]
-[connection signal="pressed" from="VBox/TabContainer/Tab_日志导出/VBox/存档操作/LoadButton" to="." method="_on_load_pressed"]
-[connection signal="pressed" from="VBox/TabContainer/Tab_日志导出/VBox/存档操作/ExportSaveButton" to="." method="_on_export_save_pressed"]
-[connection signal="pressed" from="VBox/TabContainer/Tab_日志导出/VBox/存档操作/ImportSaveButton" to="." method="_on_import_save_pressed"]
-
-[ext_resource type="Script" path="res://Scripts/GM_Manager.gd" id="1_GM_Manager.gd"]
+text = "启用"
+button_pressed = true

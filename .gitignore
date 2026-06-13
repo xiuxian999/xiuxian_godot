@@ -18,6 +18,9 @@ data_*/
 .DS_Store
 Thumbs.db
 
+# 忽略 Godot 编辑器缓存目录
+.godot/
+
 # 忽略临时文件
 plyerpng/
 游戏素材/
