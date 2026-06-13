@@ -43,32 +43,8 @@ func _ready():
 	# 预加载所有精灵图
 	for anim in SPRITE_PATHS:
 		sprite_frames[anim] = load(SPRITE_PATHS[anim])
-	# 加载动画到 AnimationPlayer
-	_load_animations_to_player()
 	# 设置初始动画
 	_play_anim(ANIM_IDLE)
-
-
-func _load_animations_to_player():
-	"""将 Animations/ 目录中的动画资源加载到 AnimationPlayer"""
-	if not has_node("AnimationPlayer"):
-		return
-	var ap = $AnimationPlayer
-	var dir = DirAccess.open("res://Animations/")
-	if not dir:
-		return
-	dir.list_dir_begin()
-	var file_name = dir.get_next()
-	while file_name != "":
-		if file_name.ends_with(".res") and file_name != "SETUP_INSTRUCTIONS.txt":
-			var anim_path = "res://Animations/" + file_name
-			var anim_res = load(anim_path)
-			if anim_res and anim_res is Animation:
-				var anim_name = file_name.get_basename()
-				if not ap.has_animation(anim_name):
-					ap.add_animation(anim_name, anim_res)
-		file_name = dir.get_next()
-	print("✅ 动画已加载到 AnimationPlayer")
 
 
 func _physics_process(delta):
@@ -91,8 +67,8 @@ func _physics_process(delta):
 	# 检测是否按住了Shift（跑步）
 	var is_running = Input.is_key_pressed(KEY_SHIFT)
 
-	# 检测攻击输入
-	if Input.is_action_just_pressed("ui_accept") or Input.is_key_pressed(KEY_SPACE):
+	# 检测攻击输入（空格键）
+	if Input.is_key_pressed(KEY_SPACE):
 		_attack()
 		return
 
