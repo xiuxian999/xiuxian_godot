@@ -1,0 +1,212 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script"  path="res://Scripts/MainWorld.gd" id="1"]
+
+[node name="MainWorld" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+process_mode = 2
+script = ExtResource("1")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+color = Color(0.12549, 0.0784314, 0.0392157, 1)
+
+[node name="TopBar" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 1
+
+[node name="CharacterInfo" type="HBoxContainer" parent="TopBar"]
+layout_mode = 2
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LevelLabel" type="Label" parent="TopBar/CharacterInfo"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "等级：1"
+
+[node name="RealmLabel" type="Label" parent="TopBar/CharacterInfo"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "境界：炼气一层"
+
+[node name="HPBar" type="ProgressBar" parent="TopBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -15.0
+offset_right = 150.0
+offset_bottom = 15.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 1
+min_value = 0.0
+max_value = 100.0
+value = 100.0
+show_percentage = false
+
+[node name="HPLabel" type="Label" parent="TopBar/HPBar"]
+layout_mode = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+text = "HP: 100/100"
+
+[node name="MPBar" type="ProgressBar" parent="TopBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = 20.0
+offset_right = 150.0
+offset_bottom = 50.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 1
+min_value = 0.0
+max_value = 50.0
+value = 50.0
+show_percentage = false
+
+[node name="MPLabel" type="Label" parent="TopBar/MPBar"]
+layout_mode = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+text = "MP: 50/50"
+
+[node name="BottomBar" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -70.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 1
+
+[node name="ButtonContainer" type="HBoxContainer" parent="BottomBar"]
+layout_mode = 2
+offset_right = 40.0
+offset_bottom = 50.0
+
+[node name="BagButton" type="Button" parent="BottomBar/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 1
+text = "背包"
+
+[node name="SkillButton" type="Button" parent="BottomBar/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 1
+text = "技能"
+
+[node name="TaskButton" type="Button" parent="BottomBar/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 1
+text = "任务"
+
+[node name="MapButton" type="Button" parent="BottomBar/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 1
+text = "地图"
+
+[node name="GMButton" type="Button" parent="BottomBar/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 1
+text = "GM工具"
+
+[node name="LeftPanel" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 80.0
+offset_right = 210.0
+offset_bottom = -80.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="TaskLabel" type="Label" parent="LeftPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "任务列表"
+
+[node name="TaskList" type="ItemList" parent="LeftPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_minimum_size = Vector2(0, 200)
+
+[node name="CenterArea" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 220.0
+offset_top = 80.0
+offset_right = -10.0
+offset_bottom = -80.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="PlaceholderLabel" type="Label" parent="CenterArea"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -15.0
+offset_right = 100.0
+offset_bottom = 15.0
+text = "游戏世界区域（待实现）"
