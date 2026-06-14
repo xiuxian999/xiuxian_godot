@@ -11,11 +11,12 @@ config_version=5
 [application]
 
 config/name="魂穿凡人"
-run/main_scene="res://Scenes/GM_Manager.tscn"
+run/main_scene="res://Scenes/Player.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
+
 GlobalLuckController="*res://Scripts/GlobalLuckController.gd"
 
 [display]

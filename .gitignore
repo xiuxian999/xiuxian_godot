@@ -1,35 +1,16 @@
-# Godot 4+ 忽略规则
-# 忽略导入后的缓存文件
+# Godot 4+ import files
+*.uid
 *.import
-*.md5
-*.translation
 
-# 忽略 Mono 编译产物（如适用）
-.mono/
-data_*/
+# WorkBuddy local config
+.workbuddy/
 
-# 忽略 IDE 文件
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# 忽略系统文件
-.DS_Store
-Thumbs.db
-
-# 忽略 Godot 编辑器缓存目录
+# Godot build files
 .godot/
 
-# 忽略临时文件
-plyerpng/
-游戏素材/
-create_animations.gd
+# GDScript temporary files
+*.gd~
 
-# 忽略导出产物
-exports/
-*.pck
-*.exe
-*.dmg
-*.x86_64
-*.arm64
+# Mono files (if using C#)
+data_*/
+mono_crash.*.json
