@@ -14,3 +14,8 @@
 # Mono files (if using C#)
 data_*/
 mono_crash.*.json
+
+# Game assets (large binary files)
+游戏素材/*.zip
+游戏素材/*_extracted/
+游戏素材/__MACOSX/
