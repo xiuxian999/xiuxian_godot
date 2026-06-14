@@ -69,12 +69,16 @@ var luck_config: Dictionary = {
 
 # 当前提示级别（可被 GM 工具修改）
 var current_prompt_level: int = PromptLevel.PROMPT_DETAILED
+# 配置文件路径
+const CONFIG_PATH: String = "user://global_luck_config.cfg"
 
 # ==========================================
 # 生命周期
 # ==========================================
 func _ready():
 	print("✅ GlobalLuckController 已加载")
+	# 加载配置
+	_load_config()
 	print("📊 当前几率配置：")
 	_print_current_config()
 
@@ -177,6 +181,8 @@ func set_prompt_level(level: int) -> void:
 	var level_name = ["关闭", "简洁", "详细"][current_prompt_level]
 	_trigger_prompt(0, "🔔 提示级别已设为：【%s】" % level_name)
 	print("🔔 提示级别 → %s" % level_name)
+	# 保存配置
+	_save_config()
 
 
 # ==========================================
@@ -213,3 +219,60 @@ func get_config() -> Dictionary:
 
 func get_system_names() -> Array:
 	return luck_config.keys()
+
+
+# ==========================================
+# 配置保存/加载
+# ==========================================
+func _save_config() -> void:
+	"""保存配置到本地文件"""
+	var config = ConfigFile.new()
+	
+	# 保存提示级别
+	config.set_value("settings", "prompt_level", current_prompt_level)
+	
+	# 保存几率配置
+	for key in luck_config:
+		var cfg = luck_config[key]
+		config.set_value("luck_config", key + "/base_rate", cfg.base_rate)
+		config.set_value("luck_config", key + "/max_rate", cfg.max_rate)
+		config.set_value("luck_config", key + "/luck_bonus", cfg.luck_bonus)
+		config.set_value("luck_config", key + "/current_luck", cfg.current_luck)
+		config.set_value("luck_config", key + "/enabled", cfg.enabled)
+	
+	# 写入文件
+	var err = config.save(CONFIG_PATH)
+	if err == OK:
+		print("💾 配置已保存：%s" % CONFIG_PATH)
+	else:
+		push_error("❌ 配置保存失败：%d" % err)
+
+
+func _load_config() -> void:
+	"""从本地文件加载配置"""
+	var config = ConfigFile.new()
+	var err = config.load(CONFIG_PATH)
+	
+	if err != OK:
+		print("📁 配置文件不存在，使用默认配置")
+		return
+	
+	# 加载提示级别
+	if config.has_section_key("settings", "prompt_level"):
+		current_prompt_level = config.get_value("settings", "prompt_level")
+		print("🔔 提示级别已加载：%d" % current_prompt_level)
+	
+	# 加载几率配置
+	for key in luck_config:
+		if config.has_section_key("luck_config", key + "/base_rate"):
+			luck_config[key].base_rate = config.get_value("luck_config", key + "/base_rate")
+		if config.has_section_key("luck_config", key + "/max_rate"):
+			luck_config[key].max_rate = config.get_value("luck_config", key + "/max_rate")
+		if config.has_section_key("luck_config", key + "/luck_bonus"):
+			luck_config[key].luck_bonus = config.get_value("luck_config", key + "/luck_bonus")
+		if config.has_section_key("luck_config", key + "/current_luck"):
+			luck_config[key].current_luck = config.get_value("luck_config", key + "/current_luck")
+		if config.has_section_key("luck_config", key + "/enabled"):
+			luck_config[key].enabled = config.get_value("luck_config", key + "/enabled")
+	
+	print("📂 配置已加载：%s" % CONFIG_PATH)
