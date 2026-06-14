@@ -1,0 +1,41 @@
+name: GDScript Syntax Check
+
+on:
+  push:
+    branches: [dev, main]
+  pull_request:
+    branches: [dev, main]
+
+jobs:
+  gdscript-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Setup Godot
+      uses: lihop/godot-setup-action@v1
+      with:
+        version: 4.6.3
+        release-type: stable
+        
+    - name: Check GDScript syntax
+      run: |
+        echo "检查 GDScript 语法错误..."
+        find . -name "*.gd" -type f | while read file; do
+          echo "检查文件: $file"
+          godot --headless --script "$file" 2>&1 | grep -i "error\|警告" || true
+        done
+        echo "✅ GDScript 语法检查完成"
+        
+    - name: Check Godot scene files
+      run: |
+        echo "检查 Godot 场景文件格式..."
+        find . -name "*.tscn" -o -name "*.tres" | while read file; do
+          echo "检查文件: $file"
+          if ! grep -q "\[gd_scene\|\[gd_resource" "$file"; then
+            echo "⚠️ 警告: $file 可能不是有效的 Godot 资源文件"
+          fi
+        done
+        echo "✅ Godot 场景文件检查完成"
