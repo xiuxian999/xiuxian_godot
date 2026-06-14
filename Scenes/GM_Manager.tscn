@@ -20,6 +20,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 0
 color = Color(0.12549, 0.0784314, 0.0392157, 1)
 
 [node name="MainPanel" type="Panel" parent="."]
@@ -35,6 +36,7 @@ offset_right = 400.0
 offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="VBox" type="VBoxContainer" parent="MainPanel"]
 layout_mode = 2
@@ -43,10 +45,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="TopBar" type="HBoxContainer" parent="MainPanel/VBox"]
 layout_mode = 2
 size_flags_vertical = 0
+mouse_filter = 1
 
 [node name="TitleLabel" type="Label" parent="MainPanel/VBox/TopBar"]
 layout_mode = 2
