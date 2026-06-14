@@ -67,6 +67,10 @@ func _cache_nodes() -> void:
 	_nodes["speed_slider"]   = _get_node("MainPanel/VBox/TabContainer/全局设置/VBox/游戏速度行/SpeedSlider")
 	_nodes["speed_label"]    = _get_node("MainPanel/VBox/TabContainer/全局设置/VBox/游戏速度行/SpeedLabel")
 	_nodes["debug_check"]    = _get_node("MainPanel/VBox/TabContainer/全局设置/VBox/调试模式行/DebugCheck")
+	_nodes["export_button"]  = _get_node("MainPanel/VBox/TabContainer/全局设置/VBox/配置按钮行/ExportButton")
+	_nodes["import_button"]  = _get_node("MainPanel/VBox/TabContainer/全局设置/VBox/配置按钮行/ImportButton")
+	_nodes["export_dialog"]  = _get_node("ExportDialog")
+	_nodes["import_dialog"]  = _get_node("ImportDialog")
 	# TabContainer 本身
 	_nodes["tab_container"]  = _get_node("MainPanel/VBox/TabContainer")
 
@@ -257,6 +261,36 @@ func _connect_signals() -> void:
 	else:
 		push_warning("DebugCheck 节点为空，信号未连接")
 
+	# —— 配置导出/导入按钮 ——
+	var eb: Button = _get_node("MainPanel/VBox/TabContainer/全局设置/VBox/配置按钮行/ExportButton")
+	if eb:
+		eb.pressed.connect(_on_export_pressed)
+		print("  ✅ ExportButton.pressed 已连接")
+	else:
+		push_warning("ExportButton 节点为空，信号未连接")
+
+	var ib: Button = _get_node("MainPanel/VBox/TabContainer/全局设置/VBox/配置按钮行/ImportButton")
+	if ib:
+		ib.pressed.connect(_on_import_pressed)
+		print("  ✅ ImportButton.pressed 已连接")
+	else:
+		push_warning("ImportButton 节点为空，信号未连接")
+
+	# —— 文件对话框 ——
+	var ed: FileDialog = _get_node("ExportDialog")
+	if ed:
+		ed.file_selected.connect(_on_export_dialog_confirmed)
+		print("  ✅ ExportDialog.file_selected 已连接")
+	else:
+		push_warning("ExportDialog 节点为空，信号未连接")
+
+	var id: FileDialog = _get_node("ImportDialog")
+	if id:
+		id.file_selected.connect(_on_import_dialog_confirmed)
+		print("  ✅ ImportDialog.file_selected 已连接")
+	else:
+		push_warning("ImportDialog 节点为空，信号未连接")
+
 	# —— TabContainer 标签页切换 ——
 	var tc: TabContainer = _get_node("MainPanel/VBox/TabContainer")
 	if tc:
@@ -283,15 +317,15 @@ func _refresh_prob_ui() -> void:
 
 	var rs: SpinBox = _nodes.get("rate_spin")
 	if rs:
-		rs.value = cfg.base_rate * 100.0
+		rs.value = ccfg.base_rate * 100.0
 
 	var ll: Label = _nodes.get("luck_label")
 	if ll:
-		ll.text = "%.1f%%" % [cfg.current_luck * 100.0]
+		ll.text = "%.1f%%" % [ccfg.current_luck * 100.0]
 
 	var ml: Label = _nodes.get("max_rate_label")
 	if ml:
-		ml.text = "%.1f%%" % [cfg.max_rate * 100.0]
+		ml.text = "%.1f%%" % [ccfg.max_rate * 100.0]
 
 
 # =========================================
@@ -440,3 +474,135 @@ func _on_tab_changed(_tab: int) -> void:
 	var tc: TabContainer = _nodes.get("tab_container")
 	if tc:
 		print("📑 切换标签页 → %s" % tc.get_tab_title(_tab))
+
+
+# =========================================
+# 配置导出/导入功能
+# =========================================
+func _on_export_pressed() -> void:
+	"""点击「导出配置」按钮，打开文件保存对话框"""
+	var dialog: FileDialog = _nodes.get("export_dialog")
+	if dialog:
+		dialog.popup_centered(Vector2i(600, 400))
+		print("📤 打开导出文件对话框")
+
+
+func _on_export_dialog_confirmed(path: String) -> void:
+	"""确认导出文件路径，生成 CSV 文件"""
+	if not Engine.has_singleton("GlobalLuckController"):
+		push_warning("GlobalLuckController 单例未找到，无法导出")
+		return
+	
+	var glc = Engine.get_singleton("GlobalLuckController")
+	var csv_lines: Array = []
+	
+	# CSV 表头
+	csv_lines.append("事件ID,事件名称,基础概率(%),保底等级(%),最高概率(%),备注")
+	
+	# 遍历所有概率系统
+	for i in range(SYSTEM_KEYS.size()):
+		var key: String = SYSTEM_KEYS[i]
+		var name: String = SYSTEM_NAMES[i]
+		if glc.luck_config.has(key):
+			var cfg: Dictionary = glc.luck_config[key]
+			var line: String = "%s,%s,%.1f,%.1f,%.1f,%s" % [
+				key,
+				name,
+				ccfg.base_rate * 100.0,
+				ccfg.current_luck * 100.0,
+				ccfg.max_rate * 100.0,
+				"",  # 备注留空
+			]
+			csv_lines.append(line)
+	
+	# 写入文件
+	var file = FileAccess.open(path, FileAccess.WRITE)
+	if file:
+		for line in csv_lines:
+			file.store_line(line)
+		file.close()
+		print("✅ 配置导出成功！文件路径：%s" % path)
+		print("  📄 共导出 %d 条概率配置" % [csv_lines.size() - 1])
+	else:
+		push_error("❌ 无法打开文件：%s" % path)
+
+
+func _on_import_pressed() -> void:
+	"""点击「导入配置」按钮，打开文件选择对话框"""
+	var dialog: FileDialog = _nodes.get("import_dialog")
+	if dialog:
+		dialog.popup_centered(Vector2i(600, 400))
+		print("📥 打开导入文件对话框")
+
+
+func _on_import_dialog_confirmed(path: String) -> void:
+	"""确认导入文件路径，解析 CSV 文件并更新配置"""
+	if not Engine.has_singleton("GlobalLuckController"):
+		push_warning("GlobalLuckController 单例未找到，无法导入")
+		return
+	
+	# 读取文件
+	var file = FileAccess.open(path, FileAccess.READ)
+	if not file:
+		push_error("❌ 无法打开文件：%s" % path)
+		return
+	
+	var line_num: int = 0
+	var success_count: int = 0
+	var error_msgs: Array = []
+	
+	# 逐行解析
+	while not file.eof_reached():
+		var line: String = file.get_line().strip_edges()
+		line_num += 1
+		
+		# 跳过空行和表头
+		if line.is_empty() or line.begins_with("事件ID"):
+			continue
+		
+		# 解析 CSV 行
+		var parts: Array = line.split(",")
+		if parts.size() < 3:
+			error_msgs.append("第 %d 行：格式错误（至少需要 3 列）" % line_num)
+			continue
+		
+		var key: String = parts[0].strip_edges()
+		var base_rate_str: String = parts[2].strip_edges()
+		
+		# 校验事件 ID
+		if not SYSTEM_KEYS.has(key):
+			error_msgs.append("第 %d 行：未知事件 ID「%s」" % [line_num, key])
+			continue
+		
+		# 校验基础概率
+		var base_rate: float = base_rate_str.to_float() / 100.0
+		if base_rate < 0.0 or base_rate > 1.0:
+			error_msgs.append("第 %d 行：基础概率超出范围（0-100）" % line_num)
+			continue
+		
+		# 应用配置
+		Engine.get_singleton("GlobalLuckController").set_base_rate(key, base_rate)
+		success_count += 1
+	
+	file.close()
+	
+	# 刷新 UI
+	_refresh_prob_ui()
+	
+	# 打印结果
+	print("✅ 配置导入完成！")
+	print("  📊 成功：%d 条" % success_count)
+	if error_msgs.size() > 0:
+		print("  ⚠️ 失败：%d 条" % error_msgs.size())
+		for msg in error_msgs:
+			print("    - %s" % msg)
+	else:
+		print("  ✅ 全部成功，无错误")
+	
+	# 显示结果到 UI（如果有测试结果标签）
+	var tl: Label = _nodes.get("test_result")
+	if tl:
+		var msg: String = "导入完成：成功 %d 条" % success_count
+		if error_msgs.size() > 0:
+			msg += "，失败 %d 条（详见控制台）" % error_msgs.size()
+		tl.text = msg

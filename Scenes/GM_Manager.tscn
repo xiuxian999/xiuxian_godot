@@ -437,3 +437,38 @@ layout_mode = 2
 size_flags_horizontal = 1
 text = "启用"
 button_pressed = true
+
+[node name="HSeparator2" type="HSeparator" parent="MainPanel/VBox/TabContainer/全局设置/VBox"]
+layout_mode = 2
+
+[node name="配置按钮行" type="HBoxContainer" parent="MainPanel/VBox/TabContainer/全局设置/VBox"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="ExportButton" type="Button" parent="MainPanel/VBox/TabContainer/全局设置/VBox/配置按钮行"]
+mouse_filter = 2
+layout_mode = 2
+size_flags_horizontal = 1
+text = "导出配置"
+
+[node name="ImportButton" type="Button" parent="MainPanel/VBox/TabContainer/全局设置/VBox/配置按钮行"]
+mouse_filter = 2
+layout_mode = 2
+size_flags_horizontal = 1
+text = "导入配置"
+
+[node name="ExportDialog" type="FileDialog" parent="."]
+layout_mode = 2
+mode = 3
+access = 1
+file_mode = 4
+filters = PackedStringArray("*.csv")
+current_file = "gm_config.csv"
+
+[node name="ImportDialog" type="FileDialog" parent="."]
+layout_mode = 2
+mode = 0
+access = 1
+file_mode = 0
+filters = PackedStringArray("*.csv")
+current_file = "gm_config.csv"
