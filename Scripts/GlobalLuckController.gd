@@ -243,7 +243,7 @@ func _save_config() -> void:
 	# 写入文件
 	var err = config.save(CONFIG_PATH)
 	if err == OK:
-		print("💾 配置已保存：%s" % CONFIG_PATH)
+		print("💾 配置已保存：%s" % ProjectSettings.globalize_path(CONFIG_PATH))
 	else:
 		push_error("❌ 配置保存失败：%d" % err)
 
@@ -255,6 +255,8 @@ func _load_config() -> void:
 	
 	if err != OK:
 		print("📁 配置文件不存在，使用默认配置")
+		# 保存默认配置
+		_save_config()
 		return
 	
 	# 加载提示级别
